@@ -229,7 +229,7 @@ GEM
       racc
     pg (1.5.9)
     phlex (1.11.0)
-    phlex-icons (1.4.0)
+    phlex-icons (1.7.0)
       phlex (>= 1.11)
     phlex-rails (1.2.2)
       phlex (>= 1.10, < 2)
@@ -415,7 +415,7 @@ DEPENDENCIES
   octicons
   octicons_helper
   pg (~> 1.1)
-  phlex-icons (~> 1.4)
+  phlex-icons (~> 1.7)
   phlex-rails
   phlexy_ui (~> 0.1.18)
   propshaft
