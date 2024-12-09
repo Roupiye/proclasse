@@ -21,10 +21,14 @@
 class Challenge < ApplicationRecord
   acts_as_tenant(:user)
 
+  has_many :tests
+  accepts_nested_attributes_for :tests, reject_if: :all_blank, allow_destroy: true
+
   has_rich_text :problem
 
   enum :difficulty, [:easy, :itermediate, :hard], default: :easy
 
   validates :title, presence: true, length: { minimum: 6}
+  validates :difficulty, presence: true
   validates :problem, presence: true, length: { minimum: 60}
 end

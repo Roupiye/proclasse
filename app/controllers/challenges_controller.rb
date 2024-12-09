@@ -12,7 +12,7 @@ class ChallengesController < ApplicationController
 
   # GET /challenges/new
   def new
-    @challenge = Challenge.new
+    render Challenges::NewView.new(Challenge.new)
   end
 
   # GET /challenges/1/edit
@@ -21,6 +21,7 @@ class ChallengesController < ApplicationController
 
   # POST /challenges or /challenges.json
   def create
+    debugger
     @challenge = Challenge.new(challenge_params)
 
     respond_to do |format|
@@ -28,7 +29,7 @@ class ChallengesController < ApplicationController
         format.html { redirect_to @challenge, notice: "Challenge was successfully created." }
         format.json { render :show, status: :created, location: @challenge }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render Challenges::NewView.new(@challenge), status: :unprocessable_entity }
         format.json { render json: @challenge.errors, status: :unprocessable_entity }
       end
     end
@@ -65,6 +66,14 @@ class ChallengesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def challenge_params
-      params.expect(challenge: [ :step_id, :title, :problem, :difficulty ])
+      params
+        .require(:challenge)
+        .permit(
+          :step_id,
+          :title,
+          :problem,
+          :difficulty,
+          tests_attributes: [:id, :_destroy, :input, :expected_out, :hidden]
+        )
     end
 end

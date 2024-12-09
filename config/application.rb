@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module Proclasse
   class Application < Rails::Application
+    config.action_view.default_form_builder = 'ProclasseFormBuilder'
+
     config.autoload_paths << "#{root}/app/views/forms"
     config.autoload_paths << "#{root}/app/views"
     config.autoload_paths << "#{root}/app/views/layouts"

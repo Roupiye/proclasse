@@ -1,3 +1,18 @@
+# monkey patch https://github.com/rubymonolith/superform/issues/7
+
+module Superform
+  class Namespace < Node
+    def initialize(key, parent:, object: nil, field_class: ApplicationForm::Field)
+      super(key, parent:)
+      @object = object
+      @field_class = field_class
+      @children = {}
+      yield self if block_given?
+    end
+  end
+end
+
+
 class ApplicationForm < Superform::Rails::Form
   include Phlex::Rails::Helpers::Pluralize
 
@@ -20,7 +35,7 @@ class ApplicationForm < Superform::Rails::Form
     render(
       component.field.label(class: "mt-2 form-control w-full") {
         div(class: "label") {
-          span(class: "label-text") {
+          span(class: "label-text text-base") {
             plain label
             plain " *" if component.instance_variable_get(:@attributes)[:required]
           }
