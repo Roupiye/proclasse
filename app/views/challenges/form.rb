@@ -1,19 +1,22 @@
-class Challenges::Form < ApplicationForm
+# frozen_string_literal: true
+
+class Challenges::Form < ApplicationView
   include Phlex::Rails::Helpers::LinkTo
-  include Phlex::Rails::Helpers::RichTextArea
+  include Phlex::Rails::Helpers::FormWith
 
-  def initialize(instance)
-    super(instance)
+  attr_reader :challenge
 
-    if instance.persisted?
+  def initialize(challenge)
+    @challenge = challenge
+
+    if challenge.persisted?
       @action_verb = "Editar"
     else
       @action_verb = "Novo"
     end
-
   end
 
-  def view_template(&)
+  def view_template
     div(data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) {
       div(class: "flex justify-between items-center") {
         div(class: "flex items-center") {
@@ -21,53 +24,37 @@ class Challenges::Form < ApplicationForm
         }
         div(class: "flex") {
           link_to("Cancelar", :back, class: "btn btn-error mr-2")
-          submit(@action_verb, class: "btn btn-primary")
+          label(class: "btn btn-primary", for: "submit") { @action_verb }
         }
       }
 
-      error_messages
-
-      labeled(
-        field(:title).input(
-          required: true,
-          autofocus: true
-        ),
-        "Título"
-      )
-
-      # GAMBIS
-        labeled(
-          field(:problem).input(required: true),
-          "Problema"
-        ) {
+      form_with(model: @challenge) { |form|
+        form_control(form, :title)
+        form_control(form, :difficulty, type: :select, args: [Challenge.difficulties.keys, {}])
+        form_control(form, :problem) do
           div(class: "bg-white p-2 border border-black/20 rounded shadow-sm") {
-            rich_text_area :challenge, :problem
+            form.rich_text_area :problem
           }
-        }
+        end
 
-      labeled(
-        field(:difficulty).select(
-          *Challenge.difficulties.map{|k,v|[k,k]},
-          required: true
-        ),
-        "Dificuldade"
-      )
 
-      # row field(:output).input
-      template_tag(data_nested_form_target: "template") do
-        div(class: "nested-form-wrapper", data_new_record: true) {
-          namespace(:tests_attributes) do |test|
-            render test.field(:input).input
-            render test.field(:_destroy).input(type: :hidden)
-          end
-          button(type: "button", data_action: "nested-form#remove") {
-            "Remove todo"
+        template_tag(data_nested_form_target: "template") do
+          div(class: "nested-form-wrapper", data_new_record: true) {
+            form.fields_for :tests, Test.new, child_index: 'NEW_RECORD' do |test_fields|
+              render Challenges::TestsFields.new(test_fields)
+            end
           }
-        }
-      end
+        end
 
-      div(data_nested_form_target: "target")
-      button(type: "button", data_action: "nested-form#add") { "Novo teste" }
+        div(data_nested_form_target: "target")
+        button(
+          class: "btn btn-secondary mt-5 block ml-auto",
+          style: "margin-bottom: 300px;",
+          data_action: "nested-form#add"
+        ) { "Novo teste" }
+
+        form.submit '', class: 'btn btn-primary hidden', id: "submit"
+      }
     }
   end
 end
