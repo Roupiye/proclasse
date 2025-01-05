@@ -20,7 +20,6 @@ gem "authentication-zero", "~> 4.0"
 gem "octicons"
 gem "octicons_helper"
 
-gem "acts_as_tenant"
 gem "pg", "~> 1.1"
 gem "solid_cache"
 gem "solid_queue"

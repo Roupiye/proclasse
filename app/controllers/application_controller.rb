@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
 
   # allow_browser versions: :modern
 
-  set_current_tenant_through_filter
   before_action :set_current_request_details
   before_action :set_current_user
   before_action :authenticate
@@ -25,7 +24,6 @@ class ApplicationController < ActionController::Base
     def set_current_user
       if session_record = Session.eager_load(user: [:professor, :student, :selected_room]).find_by_id(cookies.signed[:session_token])
         Current.session = session_record
-        set_current_tenant(Current.user)
       end
     end
 

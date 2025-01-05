@@ -22,6 +22,7 @@ class ChallengesController < ApplicationController
   # POST /challenges or /challenges.json
   def create
     @challenge = Challenge.new(challenge_params)
+    @challenge.user = Current.user
 
     respond_to do |format|
       if @challenge.save

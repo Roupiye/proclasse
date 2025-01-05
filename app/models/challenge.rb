@@ -19,8 +19,7 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Challenge < ApplicationRecord
-  acts_as_tenant(:user)
-
+  belongs_to :user
   has_many :tests
   accepts_nested_attributes_for :tests, reject_if: :all_blank, allow_destroy: true
 
