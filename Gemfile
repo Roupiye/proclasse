@@ -25,7 +25,7 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 
-gem "bcrypt", "~> 3.1.7"
+gem "bcrypt", "~> 3.1.20"
 gem "image_processing", "~> 1.2"
 gem "bootsnap", require: false
 gem "tzinfo-data", platforms: %i[ windows jruby ]
