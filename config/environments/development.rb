@@ -2,14 +2,14 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
 
-config.session_store :redis_session_store,
-  serializer: :json,
-  on_redis_down: ->(*a) { Rails.logger.error("Redis down! #{a.inspect}") },
-  redis: {
-    expire_after: 120.minutes,
-    key_prefix: "session:",
-    url: ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" }
-  }
+# config.session_store :redis_session_store,
+#   serializer: :json,
+#   on_redis_down: ->(*a) { Rails.logger.error("Redis down! #{a.inspect}") },
+#   redis: {
+#     expire_after: 120.minutes,
+#     key_prefix: "session:",
+#     url: ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" }
+#   }
   config.action_controller.default_url_options = {host: "localhost", port: 3000}
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -36,9 +36,10 @@ config.session_store :redis_session_store,
   end
 
   # Change to :null_store to avoid any caching.
-config.cache_store = :redis_cache_store, {
-  url: ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" }
-}
+  config.cache_store = :null_store
+  # config.cache_store = :redis_cache_store, {
+  #   url: ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" }
+  # }
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local

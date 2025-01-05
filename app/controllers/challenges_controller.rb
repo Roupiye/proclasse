@@ -21,7 +21,6 @@ class ChallengesController < ApplicationController
 
   # POST /challenges or /challenges.json
   def create
-    debugger
     @challenge = Challenge.new(challenge_params)
 
     respond_to do |format|
