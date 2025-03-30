@@ -56,6 +56,11 @@ class User < ApplicationRecord
 
   after_create { register_as_student }
 
+  def can_edit_challenge?(challenge)
+    challenge.user_id == id &&
+    professor?
+  end
+
   def context_model
     student? ? student : professor
   end

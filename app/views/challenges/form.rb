@@ -17,7 +17,7 @@ class Challenges::Form < ApplicationView
   end
 
   def view_template
-    div(data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) {
+    div(class: "pb-2", data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' }) {
       div(class: "flex justify-between items-center") {
         div(class: "flex items-center") {
           h1(class: "text-4xl font-bold leading-normal") { "#{@action_verb} Desafio" }
@@ -44,6 +44,10 @@ class Challenges::Form < ApplicationView
               render Challenges::TestsFields.new(test_fields)
             end
           }
+        end
+
+        form.fields_for :tests do |test_fields|
+          render Challenges::TestsFields.new(test_fields)
         end
 
         div(data_nested_form_target: "target")

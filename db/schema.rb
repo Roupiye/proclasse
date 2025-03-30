@@ -134,10 +134,10 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_20_143851) do
   end
 
   create_table "tests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "expected_out"
-    t.string "input"
-    t.boolean "hidden"
-    t.boolean "disabled"
+    t.string "expected_out", null: false
+    t.string "input", null: false
+    t.boolean "hidden", default: false, null: false
+    t.boolean "disabled", default: false, null: false
     t.uuid "challenge_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

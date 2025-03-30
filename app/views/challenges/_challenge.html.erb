@@ -1,19 +1,36 @@
 <div id="<%= dom_id challenge %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Title:</strong>
+  <div class="flex justify-center text-4xl font-bold items-end">
     <%= challenge.title %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Problem:</strong>
-    <div class="trix-content">
-      <%= challenge.problem %>
-    </div>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Difficulty:</strong>
+  </div>
+  <div class="text-center flex justify-center">
     <%= challenge.difficulty %>
-  </p>
+  </div>
 
+  <div class="trix-content">
+    <%= challenge.problem %>
+  </div>
+
+
+  <div class="flex justify-center text-2xl font-semibold items-end text-black/70">
+    Testes
+  </div>
+  <% if Current.user.can_edit_challenge?(@challenge) %>
+    <% @challenge.tests.each do |test| %>
+      <div class="mt-4 w-full <%= card_style %> px-4 py-2">
+        <% if test.hidden? %>
+          <p class="float-right font-bold text-black/60">
+            Oculto
+          </p>
+        <% end %>
+        <p>
+          Entrada:
+        </p>
+        <pre class="block"><%= test.input%></pre>
+        <p>
+          Saída esperada:
+        </p>
+        <pre class="block"><%= test.input%></pre>
+      </div>
+    <% end %>
+  <% end %>
 </div>
