@@ -10,11 +10,11 @@
     <%= challenge.problem %>
   </div>
 
-
-  <div class="flex justify-center text-2xl font-semibold items-end text-black/70">
-    Testes
-  </div>
   <% if Current.user.can_edit_challenge?(@challenge) %>
+    <div class="flex justify-center text-2xl font-semibold items-end text-black/70">
+      Testes
+    </div>
+
     <% @challenge.tests.each do |test| %>
       <div class="mt-4 w-full <%= card_style %> px-4 py-2">
         <% if test.hidden? %>

@@ -5,12 +5,13 @@ class ApplicationLayout < ApplicationView
   include Phlex::Rails::Helpers::ContentFor
 
   attr_reader :alert, :notice
-  attr_accessor :user
+  attr_accessor :user, :borderless
 
-  def initialize(user: nil,  alert: nil, notice: nil)
+  def initialize(user: nil,  alert: nil, notice: nil, borderless: false)
     @user = user
     @alert = alert
     @notice = notice
+    @borderless = borderless
   end
 
   def view_template()
@@ -36,12 +37,17 @@ class ApplicationLayout < ApplicationView
       end
       body(class: "h-screen") do
         render ProNavBarComponent.new(user: user)
-        main(class: "max-w-5xl mx-auto mt-14 px-4") {
-          p { notice }
-          p { alert }
-          yield
-        }
-
+        if borderless
+          main() {
+            yield
+          }
+        else
+          main(class: "max-w-5xl mx-auto mt-14 px-4") {
+            p { notice }
+            p { alert }
+            yield
+          }
+        end
       end
 
       if user&.selected_room

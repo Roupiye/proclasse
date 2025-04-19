@@ -10,6 +10,12 @@ class TasksController < ApplicationController
   def show
   end
 
+  # GET /tasks/1/ide
+  def ide
+    headers[:borderless] = true
+    render Tasks::IdeView.new
+  end
+
   # GET /tasks/new
   def new
     @task = Task.new

@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   include CableReady::Broadcaster
-  layout -> { ApplicationLayout.new(user: Current.user, alert: alert, notice: notice) }
+  layout -> { ApplicationLayout.new(user: Current.user, alert: alert, notice: notice, borderless: headers[:borderless]) }
 
   # allow_browser versions: :modern
 

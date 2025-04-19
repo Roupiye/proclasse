@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   resources :challenges
   resources :tasks
-  resource :example, constraints: -> { Rails.env.development? }
+  get  "tasks/:id/ide", to: "tasks#ide", as: :ide
+  resources :rooms
+  resources :room_requests, only: [:new, :create]
+  get  "r/:code", to: "room_requests#new", as: :room_request
+  get  "room_request_success", to: "room_requests#success", as: :success_room_request
+  get  "rooms/:id/select", to: "rooms#select", as: :select_room
+
   get  "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create"
   post "change_context", to: "sessions#change_context"
@@ -15,38 +21,12 @@ Rails.application.routes.draw do
     resource :password_reset,     only: [:new, :edit, :create, :update]
   end
   post "sign_in", to: "sessions#create"
-
   post "become_teacher", to: "professors#become_teacher"
-  resources :rooms
-  get  "r/:code", to: "room_requests#new", as: :room_request
-  get  "rooms/:id/select", to: "rooms#select", as: :select_room
-  get  "room_request_success", to: "room_requests#success", as: :success_room_request
-
-  resources :room_requests, only: [:new, :create]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  get "home/index"
 
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
   # get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
+  get "home/index"
   root "home#index"
+
   get "up" => "rails/health#show", as: :rails_health_check
 end
