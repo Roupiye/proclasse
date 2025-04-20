@@ -18,7 +18,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    @task = Task.new
+    render Tasks::NewView.new(Task.new)
   end
 
   # GET /tasks/1/edit

@@ -29,4 +29,5 @@ Rails.application.routes.draw do
   root "home#index"
 
   get "up" => "rails/health#show", as: :rails_health_check
+  get 'codicon.ttf', to: redirect('https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/esm/vs/base/browser/ui/codicons/codicon/codicon.ttf')
 end

@@ -127,8 +127,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_20_143851) do
 
   create_table "tasks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.date "published_at"
-    t.date "due_date"
-    t.integer "weight"
+    t.date "due_date", null: false
+    t.float "weight", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

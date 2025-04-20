@@ -10,4 +10,6 @@
 #  updated_at   :datetime         not null
 #
 class Task < ApplicationRecord
+  validates :due_date, presence: true
+  validates :weight, presence: true
 end

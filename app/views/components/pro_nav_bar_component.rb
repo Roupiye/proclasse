@@ -24,7 +24,7 @@ class ProNavBarComponent < ApplicationComponent
               if user.professor?
                 if user.selected_room
                   menu.item { Link(href: room_path(user.selected_room)) { "Alunos" } }
-                  menu.item { Link(href: root_path) { "Tarefas" } }
+                  menu.item { Link(href: tasks_path) { "Tarefas" } }
                 end
                 menu.item { Link(href: challenges_path) { "Desafios" } }
               else

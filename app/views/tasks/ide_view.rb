@@ -2,32 +2,20 @@
 
 class Tasks::IdeView < ApplicationView
   def view_template
-    div(
-      data_controller: "resize",
-      data_action: " mousemove@ window->resize#set mouseup@window->resize#stop",
-      class: "relative"
-    ) do
-      whitespace
-      nav(data_resize_target: "panel") do
-        plain "aaaa"
-      end
-      div(
-        data_action: " mousedown->resize#start",
-        class:
-          "absolute top-0 right-0 z-10 w-2 h-full bg-gray-500 cursor-ew-resize"
-      ) {
-      }
-        plain "odwajoidajwdoiajwdoiawj"
-    end
-
-
-    div(class: "flex", style: "height: calc(100vh - 68.25px);") {
-      div(class: "w-full bg-blue-600") {
+    div(class: "flex w-full", style: "height: calc(100vh - 68.25px);", data_controller: "resize") {
+      div(class: "bg-blue-600 min-w-40", data_resize_target: "panelL") {
         plain "a"
       }
 
-      div(class: "w-full bg-red-600") {
-        plain "b"
+      div(class: "relative bg-red-600 flex-1 w-40", data_resize_target: "panelR") {
+        div(
+          class: "absolute top-0 bottom-0 cursor-col-resize bg-yellow-500 w-[10px]",
+          data_resize_target: "gutter",
+          data_action: "mousedown->resize#resize"
+        )
+        div(class: "pl-[10px]") {
+          div(data_controller: "editor", style: "height: 100%")
+        }
       }
     }
   end

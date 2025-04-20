@@ -2,24 +2,30 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["panel"];
-  static values = { isResizing: { type: Boolean, default: false } };
+  static targets = ["panelL", "panelR", "gutter"];
 
   connect() {
-    console.log("dwadwa2");
   }
 
-  start() {
-    this.isResizingValue = true;
-  }
+  resize(e) {
+    let prevX = e.x;
+    const leftPanel = this.panelLTarget.getBoundingClientRect();
+    const leftPane = this.panelLTarget;
 
-  stop() {
-    this.isResizingValue = false;
-  }
+    window.addEventListener('mousemove', mousemove);
+    window.addEventListener('mouseup', mouseup);
 
-  set(event) {
-    if (!this.isResizingValue) { return; }
+    document.body.style.userSelect = 'none';
 
-    this.panelTarget.style.width = `${this.panelTarget.offsetWidth + event.movementX}px`;
+    function mousemove(e) {
+      let newX = prevX - e.x;
+      leftPane.style.width = leftPanel.width - newX + "px";
+    }
+
+    function mouseup() {
+      window.removeEventListener('mousemove', mousemove);
+      window.removeEventListener('mouseup', mouseup);
+      document.body.style.userSelect = '';
+    }
   }
 }
