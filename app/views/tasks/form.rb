@@ -29,8 +29,14 @@ class Tasks::Form < ApplicationView
       }
 
       form_with(model: task) { |form|
-        form_control(form, :weight, type: :number_field)
-        form_control(form, :due_date, type: :date_field)
+        form_control(form, :weight, type: :number_field, label: "Peso", named_args: { step: 0.1 })
+        form_control(form, :due_date, type: :date_field, label: "Data entrega") do |block|
+          block.call
+          p(class: "mt-1 opacity-70") {
+            "O horário de entrega sempre vai ser as 23:59"
+          }
+        end
+        form_control(form, :challenge_id, label: "ID desafio")
 
         form.submit '', class: 'btn btn-primary hidden', id: "submit"
       }

@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ show edit update destroy ]
+  before_action :set_task, only: %i[ ide show edit update destroy ]
 
   # GET /tasks or /tasks.json
   def index
@@ -13,7 +13,7 @@ class TasksController < ApplicationController
   # GET /tasks/1/ide
   def ide
     headers[:borderless] = true
-    render Tasks::IdeView.new
+    render Tasks::IdeView.new(@task)
   end
 
   # GET /tasks/new
@@ -34,7 +34,7 @@ class TasksController < ApplicationController
         format.html { redirect_to @task, notice: "Task was successfully created." }
         format.json { render :show, status: :created, location: @task }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render Tasks::NewView.new(@task), status: :unprocessable_entity }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
@@ -71,6 +71,6 @@ class TasksController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def task_params
-      params.expect(task: [ :published_at, :due_date, :weight ])
+      params.expect(task: [ :challenge_id, :due_date, :weight ])
     end
 end

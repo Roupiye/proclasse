@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_20_143851) do
+ActiveRecord::Schema[8.0].define(version: 2025_04_21_233936) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -131,6 +131,8 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_20_143851) do
     t.float "weight", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "challenge_id", null: false
+    t.index ["challenge_id"], name: "index_tasks_on_challenge_id"
   end
 
   create_table "tests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -168,6 +170,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_20_143851) do
   add_foreign_key "steps", "challenges"
   add_foreign_key "steps", "exercises"
   add_foreign_key "students", "users"
+  add_foreign_key "tasks", "challenges"
   add_foreign_key "tests", "challenges"
   add_foreign_key "users", "rooms", column: "selected_room_id"
 end

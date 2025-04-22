@@ -5,6 +5,6 @@
 
 <div id="tasks" class="min-w-full">
   <% @tasks.each do |task| %>
-    <%= render ChallengeCardComponent.new(task) %>
+    <%= render TaskCardComponent.new(task) %>
   <% end %>
 </div>

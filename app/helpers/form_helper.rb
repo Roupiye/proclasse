@@ -9,7 +9,10 @@ module FormHelper
     div(class: 'form-control') do
       form.label(field, label_text, class: 'label')
       if block_given?
-        yield
+        block = Proc.new do
+          form.send(type, [field, *args], named_args)
+        end
+        yield(block)
       else
         form.send(type, [field, *args], named_args)
       end
