@@ -14,7 +14,8 @@
 
 
 .trix-content {
-  @apply h-full overflow-auto p-2;
+  @apply overflow-auto p-2;
+  height: inherit;
 }
 
 .trix-content h1 {

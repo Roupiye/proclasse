@@ -28,13 +28,21 @@ class Tasks::IdeView < ApplicationView
   end
 
   def left_panel
-    div(class: "tabs tabs-boxed bg-base-200/50 rounded-none") do
-      a(class: "tab tab-active") { "Descrição" }
-      a(class: "tab") { "Resultados" }
-    end
+    div(class: "h-full", data: {controller: "tabs", tabs_active_tab_class: "tab-active"}) {
+      div(class: "tabs tabs-boxed bg-base-200/50 rounded-none") {
+        a(class: "tab tab-active", data_tabs_target: "tab", data_action: "click->tabs#change") { "Descrição" }
+        a(class: "tab", data_tabs_target: "tab", data_action: "click->tabs#change") { "Resultados" }
+      }
 
-    div(style: "height: calc(100% - 40px)") {
-      plain task.challenge.problem.to_s
+      div(style: "height: calc(100% - 40px)", data_tabs_target: "panel") {
+        plain task.challenge.problem.to_s
+      }
+      div(style: "height: calc(100% - 40px)", data_tabs_target: "panel", class: "flex flex-col") {
+        div(class: "flex-1"){ plain "dwadwa" }
+        div(){
+          Button(:secondary, class: "w-full rounded-none") { "Testar código" }
+        }
+      }
     }
   end
 end

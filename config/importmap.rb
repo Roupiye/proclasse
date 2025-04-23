@@ -17,3 +17,4 @@ pin "@rails/actiontext", to: "actiontext.esm.js"
 pin "@stimulus-components/rails-nested-form", to: "@stimulus-components--rails-nested-form.js" # @5.0.0
 
 pin 'monaco-editor', to: 'https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/+esm'
+pin "tailwindcss-stimulus-components" # @6.1.3

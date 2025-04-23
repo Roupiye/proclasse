@@ -2,7 +2,9 @@
 
 import { application } from "controllers/application"
 import RailsNestedForm from '@stimulus-components/rails-nested-form'
+import { Tabs } from "tailwindcss-stimulus-components"
 
+application.register('tabs', Tabs)
 application.register('nested-form', RailsNestedForm)
 
 // Eager load all controllers defined in the import map under controllers/**/*_controller

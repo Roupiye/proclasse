@@ -63,13 +63,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_21_233936) do
     t.index ["user_id"], name: "index_challenges_on_user_id"
   end
 
-  create_table "exercises", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "task_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["task_id"], name: "index_exercises_on_task_id"
-  end
-
   create_table "professors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.datetime "created_at", null: false
@@ -108,16 +101,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_21_233936) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
-  create_table "steps", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "exercise_id", null: false
-    t.uuid "challenge_id", null: false
-    t.integer "index"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["challenge_id"], name: "index_steps_on_challenge_id"
-    t.index ["exercise_id"], name: "index_steps_on_exercise_id"
-  end
-
   create_table "students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.datetime "created_at", null: false
@@ -128,11 +111,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_21_233936) do
   create_table "tasks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.date "published_at"
     t.date "due_date", null: false
-    t.float "weight", null: false
+    t.uuid "room_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "challenge_id", null: false
     t.index ["challenge_id"], name: "index_tasks_on_challenge_id"
+    t.index ["room_id"], name: "index_tasks_on_room_id"
   end
 
   create_table "tests", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -161,16 +145,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_21_233936) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "challenges", "users"
-  add_foreign_key "exercises", "tasks"
   add_foreign_key "professors", "users"
   add_foreign_key "room_requests", "rooms"
   add_foreign_key "room_requests", "students"
   add_foreign_key "rooms", "professors"
   add_foreign_key "sessions", "users"
-  add_foreign_key "steps", "challenges"
-  add_foreign_key "steps", "exercises"
   add_foreign_key "students", "users"
   add_foreign_key "tasks", "challenges"
+  add_foreign_key "tasks", "rooms"
   add_foreign_key "tests", "challenges"
   add_foreign_key "users", "rooms", column: "selected_room_id"
 end

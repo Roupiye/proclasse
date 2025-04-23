@@ -18,8 +18,6 @@ class TaskCardComponent < ApplicationComponent
         plain task.challenge.title
         plain " "
         plain task.due_date.to_s
-        plain " "
-        plain task.weight
       }
       link_to("Mostrar", task_path(task))
     }
