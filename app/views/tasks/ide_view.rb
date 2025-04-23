@@ -35,13 +35,27 @@ class Tasks::IdeView < ApplicationView
       }
 
       div(style: "height: calc(100% - 40px)", data_tabs_target: "panel") {
-        # unsafe_raw(task.challenge.problem.to_trix_html)
         render partial("challenges/problem", challenge: task.challenge)
       }
       div(style: "height: calc(100% - 40px)", data_tabs_target: "panel", class: "flex flex-col") {
-        div(class: "flex-1"){ plain "dwadwa" }
+        div(class: "flex-1"){
+          results_panel
+        }
         div(){
           Button(:secondary, class: "w-full rounded-none") { "Testar código" }
+        }
+      }
+    }
+  end
+
+  def results_panel
+    div(class: "p-2") {
+      Card(:base_100, class: "w-full shadow-md border border-black/10") { |card|
+        card.body(class: "px-4 py-2 collapse") {
+          input(type: "checkbox", style: "min-height: fit-content")
+          card.title(class: "collapse-title p-0 min-h-fit h-fit w-fit m-auto") { "Envio 1" }
+          div(class: "collapse-content") { p { "hello" } }
+          # p {"lol"}
         }
       }
     }
