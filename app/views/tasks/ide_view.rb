@@ -35,7 +35,8 @@ class Tasks::IdeView < ApplicationView
       }
 
       div(style: "height: calc(100% - 40px)", data_tabs_target: "panel") {
-        plain task.challenge.problem.to_s
+        # unsafe_raw(task.challenge.problem.to_trix_html)
+        render partial("challenges/problem", challenge: task.challenge)
       }
       div(style: "height: calc(100% - 40px)", data_tabs_target: "panel", class: "flex flex-col") {
         div(class: "flex-1"){ plain "dwadwa" }
