@@ -50,12 +50,27 @@ class Tasks::IdeView < ApplicationView
 
   def results_panel
     div(class: "p-2") {
-      Card(:base_100, class: "w-full shadow-md border border-black/10") { |card|
-        card.body(class: "px-4 py-2 collapse") {
-          input(type: "checkbox", style: "min-height: fit-content")
-          card.title(class: "collapse-title p-0 min-h-fit h-fit w-fit m-auto") { "Envio 1" }
-          div(class: "collapse-content") { p { "hello" } }
-          # p {"lol"}
+      Card(
+        :base_100,
+        data_controller: "reveal",
+        data_reveal_hidden_class: "hidden",
+        class: "w-full shadow-md border border-black/10 rounded-md"
+      ) { |card|
+        card.body(class: "px-2 py-2") {
+          card.title(class: "p-0 flex justify-between", data_controller: "collapse", data_collapse_collapsableid_value: "submission-1-data") {
+            div {"Envio 1"}
+            Button(:ghost, :sm, data_action: "click->collapse#toggle") { "<" }
+          }
+          div(id: "submission-1-data", class: "hidden border border-black/10 rounded p-2", data_controller: "collapse", data_collapse_collapsableid_value: "test-1-data") {
+            div(class: "flex justify-between items-center") {
+              div() { "Teste 1" }
+              Button(:ghost, :sm, data_action: "click->collapse#toggle") { "<" }
+            }
+
+            div(id: "test-1-data", class: "hidden") {
+              plain "ajkwbdwa"
+            }
+          }
         }
       }
     }
