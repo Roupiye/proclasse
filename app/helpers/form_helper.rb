@@ -14,8 +14,6 @@ module FormHelper
         end
         yield(block)
       else
-        plain "lol"
-        form.text_field([:lol, [:lol]], {})
         form.send(type, [field, *args], named_args)
       end
       field_errors(errors) if errors.present?

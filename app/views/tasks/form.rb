@@ -28,7 +28,7 @@ class Tasks::Form < ApplicationView
         }
       }
 
-      form_with(model: task) { |form|
+      form_with(model: task, builder: ProclasseFormBuilder) { |form|
         form_control(form, :due_date, type: :date_field, label: "Data entrega") do |block|
           block.call
           p(class: "mt-1 opacity-70") {

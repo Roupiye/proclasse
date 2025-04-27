@@ -28,8 +28,7 @@ class Challenges::Form < ApplicationView
         }
       }
 
-      plain "awdwadwa"
-      form_with(model: @challenge) { |form|
+      form_with(model: @challenge, builder: ProclasseFormBuilder) { |form|
         form_control(form, :title)
         form_control(form, :difficulty, type: :select, args: [Challenge.difficulties.keys, {}])
         form_control(form, :problem) do
@@ -39,7 +38,7 @@ class Challenges::Form < ApplicationView
         end
 
 
-        template(data_nested_form_target: "template") do
+        template_tag(data_nested_form_target: "template") do
           div(class: "nested-form-wrapper", data_new_record: true) {
             form.fields_for :tests, Test.new, child_index: 'NEW_RECORD' do |test_fields|
               render Challenges::TestsFields.new(test_fields)
