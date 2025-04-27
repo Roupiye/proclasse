@@ -28,6 +28,7 @@ class Challenges::Form < ApplicationView
         }
       }
 
+      plain "awdwadwa"
       form_with(model: @challenge) { |form|
         form_control(form, :title)
         form_control(form, :difficulty, type: :select, args: [Challenge.difficulties.keys, {}])
