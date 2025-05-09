@@ -1,0 +1,14 @@
+version: '3.9'  # Specify the version of Docker Compose
+
+services:
+  piston:
+    image: ghcr.io/engineer-man/piston
+    volumes:
+      - piston_data:/piston
+    ports:
+      - "2000:2000"
+    tmpfs:
+      - /piston/jobs
+
+volumes:
+  piston_data:

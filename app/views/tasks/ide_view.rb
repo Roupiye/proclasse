@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Tasks::IdeView < ApplicationView
+  include Phlex::Rails::Helpers::FormWith
+
   attr_reader :task
 
   def initialize(task)
@@ -35,14 +37,19 @@ class Tasks::IdeView < ApplicationView
       }
 
       div(style: "height: calc(100% - 40px)", data_tabs_target: "panel") {
-        render partial("challenges/problem", challenge: task.challenge)
+        # render partial("challenges/problem", challenge: task.challenge)
+        render "challenges/problem", challenge: task.challenge #, challenge: task.challenge)
       }
       div(style: "height: calc(100% - 40px)", data_tabs_target: "panel", class: "flex flex-col") {
         div(class: "flex-1"){
           results_panel
         }
         div(){
-          Button(:secondary, class: "w-full rounded-none") { "Testar código" }
+          form_with(class: "m-0", url: task_submit_path, remote: false) { |form|
+            form.hidden_field(:task_id, value: task.id)
+            form.hidden_field(:submission_code, value: "")
+            Button(:secondary, class: "btn btn-secondary w-full rounded-none") { "Testar código" }
+          }
         }
       }
     }

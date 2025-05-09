@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :challenges
   resources :tasks
   get  "tasks/:id/ide", to: "tasks#ide", as: :ide
+  post  "tasks/:id/ide/submit", to: "tasks#submit", as: :task_submit
   resources :rooms
   resources :room_requests, only: [:new, :create]
   get  "r/:code", to: "room_requests#new", as: :room_request

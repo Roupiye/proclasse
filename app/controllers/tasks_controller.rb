@@ -10,6 +10,12 @@ class TasksController < ApplicationController
   def show
   end
 
+  # POST /tasks/1/ide/submit
+  def submit
+    ProcessSubmissionJob.perform_later()
+    render json: {lol: 2}
+  end
+
   # GET /tasks/1/ide
   def ide
     headers[:borderless] = true
