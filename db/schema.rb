@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_04_21_233936) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_03_142015) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -63,6 +63,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_21_233936) do
     t.index ["user_id"], name: "index_challenges_on_user_id"
   end
 
+  create_table "corrections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "submission_id", null: false
+    t.uuid "test_id", null: false
+    t.string "input", null: false
+    t.string "expected_out", null: false
+    t.string "output", null: false
+    t.boolean "passed", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["submission_id"], name: "index_corrections_on_submission_id"
+    t.index ["test_id"], name: "index_corrections_on_test_id"
+  end
+
   create_table "professors", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.datetime "created_at", null: false
@@ -108,6 +121,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_21_233936) do
     t.index ["user_id"], name: "index_students_on_user_id"
   end
 
+  create_table "submissions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "task_id", null: false
+    t.uuid "student_id", null: false
+    t.string "code", null: false
+    t.string "result"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_submissions_on_student_id"
+    t.index ["task_id"], name: "index_submissions_on_task_id"
+  end
+
   create_table "tasks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.date "published_at"
     t.date "due_date", null: false
@@ -145,12 +169,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_21_233936) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "challenges", "users"
+  add_foreign_key "corrections", "submissions"
+  add_foreign_key "corrections", "tests"
   add_foreign_key "professors", "users"
   add_foreign_key "room_requests", "rooms"
   add_foreign_key "room_requests", "students"
   add_foreign_key "rooms", "professors"
   add_foreign_key "sessions", "users"
   add_foreign_key "students", "users"
+  add_foreign_key "submissions", "students"
+  add_foreign_key "submissions", "tasks"
   add_foreign_key "tasks", "challenges"
   add_foreign_key "tasks", "rooms"
   add_foreign_key "tests", "challenges"

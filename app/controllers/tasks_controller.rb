@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: %i[ ide show edit update destroy ]
+  before_action :set_task, only: %i[ ide show edit update destroy submit ]
 
   # GET /tasks or /tasks.json
   def index
@@ -9,17 +9,24 @@ class TasksController < ApplicationController
   # GET /tasks/1 or /tasks/1.json
   def show
   end
-
+  include CableReady::Broadcaster
   # POST /tasks/1/ide/submit
   def submit
-    ProcessSubmissionJob.perform_later()
+    ProcessSubmissionJob.perform_later(
+      task_id: @task.id,
+      student_id: Current.user.student.id,
+      code: params[:submission_code]
+    )
+
     render json: {lol: 2}
   end
 
   # GET /tasks/1/ide
   def ide
     headers[:borderless] = true
-    render Tasks::IdeView.new(@task)
+    submissions = Submission.where(task: @task, student: Current.user.student).eager_load(:corrections)
+
+    render Tasks::IdeView.new(task: @task, submissions:)
   end
 
   # GET /tasks/new

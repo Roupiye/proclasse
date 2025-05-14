@@ -25,6 +25,7 @@ gem "pg", "~> 1.1"
 gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
+gem "faraday"
 
 gem "bcrypt", "~> 3.1.7"
 gem "image_processing", "~> 1.2"
