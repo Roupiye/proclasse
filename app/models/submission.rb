@@ -25,4 +25,8 @@ class Submission < ApplicationRecord
   belongs_to :student
 
   has_many :corrections
+
+  def passed?
+    corrections.map{_1.passed}.all?(true)
+  end
 end

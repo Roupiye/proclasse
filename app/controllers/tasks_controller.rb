@@ -24,7 +24,10 @@ class TasksController < ApplicationController
   # GET /tasks/1/ide
   def ide
     headers[:borderless] = true
-    submissions = Submission.where(task: @task, student: Current.user.student).eager_load(:corrections)
+    submissions = Submission
+      .where(task: @task, student: Current.user.student)
+      .eager_load(:corrections)
+      .order(created_at: :desc)
 
     render Tasks::IdeView.new(task: @task, submissions:)
   end

@@ -19,14 +19,20 @@ class ProcessSubmissionJob < ApplicationJob
         out = code_eval["run"]["stderr"] unless out.present?
 
         c.output = out
-        c.passed = c.output.strip == out.strip
+        c.passed = c.output.strip == c.expected_out.strip
       end
 
       correction.save!
     end
 
     cable_ready[ApplicationChannel]
-      .prepend(selector: "#submissions-list", html: Tasks::IdeView.new())
+      .prepend(
+        selector: "#submissions-list",
+        html: render(
+          SubmissionCardComponent.new(submission, index: Submission.where(task: submission.task, student: submission.student).count - 1),
+          layout: false
+        )
+      )
       .broadcast_to("test")
   end
 end
