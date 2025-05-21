@@ -49,7 +49,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "phlex-icons", "~> 1.4"
+gem "phlex-icons", "~> 2.21"
 
 gem 'stimulus_reflex', git: "https://github.com/TopRoupi/stimulus_reflex"
 
