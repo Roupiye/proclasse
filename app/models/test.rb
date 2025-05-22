@@ -21,7 +21,4 @@
 #
 class Test < ApplicationRecord
   belongs_to :challenge
-
-  validates :input, presence: true, length: { minimum: 1}
-  validates :expected_out, presence: true, length: { minimum: 1}
 end

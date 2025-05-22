@@ -11,14 +11,20 @@ export default class extends Controller {
       minimap: { enabled: false },
     })
 
-    let newValue = this.element.editor.getValue();
-    const element = document.getElementById('submission_code');
+    let newValue = this.element.editor.getValue()
+    const element = document.getElementById('submission_code')
     element.value = newValue
 
     this.element.editor.onDidChangeModelContent((event) => {
-      let newValue = this.element.editor.getValue();
-      const element = document.getElementById('submission_code');
+      let newValue = this.element.editor.getValue()
+      const element = document.getElementById('submission_code')
       element.value = newValue
     });
+
+
+    element.addEventListener('code',(event) => {
+      // console.log(event.detail.code)
+      this.element.editor.setValue(event.detail.code)
+    })
   }
 }

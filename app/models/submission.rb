@@ -24,6 +24,12 @@ class Submission < ApplicationRecord
   belongs_to :task
   belongs_to :student
 
+  enum :result, {
+    success: "success",
+    fail: "fail",
+    pending: "pending"
+  }, default: :pending
+
   has_many :corrections
 
   def passed?
