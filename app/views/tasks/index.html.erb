@@ -2,8 +2,9 @@
   <h1 class="text-4xl font-bold">Tarefas</h1>
 </div>
 
-<div id="tasks" class="min-w-full">
-  <% @tasks.each do |task| %>
-    <%= render TaskCardComponent.new(task) %>
+<div id="tasks" class="min-w-full pb-10">
+  <% @tasks.each do |obj| %>
+    <% obj => task:, completed: %>
+    <%= render TaskCardComponent.new(task, completed) %>
   <% end %>
 </div>

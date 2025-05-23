@@ -5,6 +5,8 @@ gem "puma", ">= 5.0"
 gem "kamal", require: false
 gem "thruster", require: false
 
+gem "rails-i18n"
+
 gem "propshaft"
 gem "importmap-rails"
 gem "turbo-rails"

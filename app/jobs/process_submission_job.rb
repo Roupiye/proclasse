@@ -4,10 +4,12 @@ class ProcessSubmissionJob < ApplicationJob
 
   queue_as :default
 
+  attr_accessor :submission
+
   def perform(task_id:, student_id:, code:)
     return if Submission.where(task_id:, student_id:, result: "pending").any?
 
-    submission = Submission.create!(task_id:, student_id:, code:)
+    @submission = Submission.create!(task_id:, student_id:, code:)
     broadcast_append(submission)
 
     submission.task.challenge.tests.each do |test|
@@ -39,6 +41,10 @@ class ProcessSubmissionJob < ApplicationJob
     broadcast_update(submission)
   end
 
+  private
+
+  def key = "#{submission.task_id}#{submission.student_id}"
+
   def broadcast_append(submission)
     cable_ready[ApplicationChannel]
       .prepend(
@@ -48,7 +54,7 @@ class ProcessSubmissionJob < ApplicationJob
           layout: false
         )
       )
-      .broadcast_to("test")
+      .broadcast_to(key)
   end
 
   def broadcast_update(submission)
@@ -60,6 +66,6 @@ class ProcessSubmissionJob < ApplicationJob
           layout: false
         )
       )
-      .broadcast_to("test")
+      .broadcast_to(key)
   end
 end

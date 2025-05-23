@@ -1,0 +1,7 @@
+pt-BR:
+  title: "título"
+  difficulty: "dificuldade"
+  problem: "problema"
+  input: "entrada"
+  expected_out: "saída esperada"
+  hidden: "oculto"

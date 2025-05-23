@@ -23,16 +23,28 @@
 class Task < ApplicationRecord
   belongs_to :challenge
   belongs_to :room
+  has_many :submissions
 
   validates :due_date, presence: true
   validates :challenge_id, presence: true
   validate :challenge_exists
+  validate :due_date_in_valid_range
 
   private
 
   def challenge_exists
     unless Challenge.exists?(challenge_id)
       errors.add(:challenge_id, "does not exist")
+    end
+  end
+
+  def due_date_in_valid_range
+    return if due_date.blank?
+
+    if due_date <= Date.current
+      errors.add(:due_date, "deve estar no futuro")
+    elsif due_date > 1.year.from_now.to_date
+      errors.add(:due_date, "deve estar dentro de 1 ano")
     end
   end
 end

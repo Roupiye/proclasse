@@ -1,7 +1,7 @@
 module FormHelper
   def form_control(form, field, type: :text_field, label: nil, args: nil, named_args: {}, &block)
     required = is_required?(form.object, field)
-    label ||= field.to_s.humanize
+    label ||= t(field).to_s.humanize
     label_text = required ? "#{label} *" : label
     named_args[:required] = true if required
     errors = form.object.errors[field]

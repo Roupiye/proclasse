@@ -16,7 +16,7 @@ class Challenges::TestsFields < ApplicationView
       data_new_record: form.object.new_record?
     ) {
       div(class: "border rounded p-2 border-black/10 absolute flex right-2 -top-5 bg-base-100 items-center") {
-        form.label(:hidden, class: "mr-2")
+        form.label(t(:hidden), class: "mr-2")
         form.check_box([:hidden], {})
 
         button(type: "button", data_action: "nested-form#remove", class: "btn btn-error btn-sm py-0 ml-2") { "Remover" }

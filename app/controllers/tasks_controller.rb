@@ -3,7 +3,20 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = Task.all.to_a
+    submissions_cache = Submission.where(result: "success", student_id: Current.user.student, task_id: @tasks.map(&:id))
+    @tasks.map! do |task|
+      {
+        task: task,
+        completed: submissions_cache.find{it.task_id == task.id}.present?
+      }
+    end
+
+    due = @tasks.select { it[:task].due_date < Time.now || it[:completed]}.sort{it[:task].due_date <=> it[:task].due_date}
+    not_due = @tasks.select { it[:task].due_date > Time.now }.sort{it[:task].due_date <=> it[:task].due_date}
+    not_due -= due
+
+    @tasks = not_due + due
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -48,7 +61,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: "Task was successfully created." }
+        format.html { redirect_to challenges_path, notice: "Task was successfully created." }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render Tasks::NewView.new(@task), status: :unprocessable_entity }

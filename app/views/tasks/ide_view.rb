@@ -12,7 +12,7 @@ class Tasks::IdeView < ApplicationView
   end
 
   def view_template
-    div(data_controller: "cable-from", data_cable_from_id_value: "test")
+    div(data_controller: "cable-from", data_cable_from_id_value: "#{task.id}#{Current.user.student.id}")
 
     div(class: "flex w-full", style: @view_height, data_controller: "resize") {
       div(class: "w-96", style: "#{@view_height} min-width: 215px", data_resize_target: "panelL") {

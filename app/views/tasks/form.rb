@@ -35,7 +35,9 @@ class Tasks::Form < ApplicationView
             "O horário de entrega sempre vai ser as 23:59"
           }
         end
-        form_control(form, :challenge_id, type: :hidden_field)
+        div(class: "hidden") {
+          form_control(form, :challenge_id, type: :text_field, named_args: {value: task.challenge_id})
+        }
 
         form.submit '', class: 'btn btn-primary hidden', id: "submit"
       }
