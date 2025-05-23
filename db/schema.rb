@@ -65,11 +65,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_03_142015) do
 
   create_table "corrections", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "submission_id", null: false
-    t.uuid "test_id", null: false
+    t.uuid "test_id"
     t.string "input", null: false
     t.string "expected_out", null: false
     t.string "output", null: false
     t.boolean "passed", default: false, null: false
+    t.boolean "hidden", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["submission_id"], name: "index_corrections_on_submission_id"

@@ -16,6 +16,7 @@ class ProcessSubmissionJob < ApplicationJob
       correction.tap do |c|
         c.input = test.input
         c.expected_out = test.expected_out
+        c.hidden = test.hidden
 
         code_eval = Piston.exec(:python, input: test.input) { code }
         out = code_eval["run"]["stdout"]

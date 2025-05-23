@@ -34,7 +34,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    render Tasks::NewView.new(Task.new)
+    render Tasks::NewView.new(Task.new(challenge_id: params[:challenge_id]))
   end
 
   # GET /tasks/1/edit

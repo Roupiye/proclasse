@@ -56,7 +56,10 @@ class ProNavBarComponent < ApplicationComponent
           if user.professor.nil?
             menu.item { link_to("Virar Professor", become_teacher_path, data: { "turbo-method": :post }) }
           else
-            menu.item { link_to(change_context_path , class: "btn btn-secondary btn-sm mb-1", data: { "turbo-method": :post }) { user.context } }
+            div(class: "flex") {
+              menu.item { link_to(user.context == "student" ? "#" : change_context_path , class: "btn btn-#{user.context != "student" ? "ghost" : "secondary"} btn-sm mb-1 mr-1", data: { "turbo-method": :post }) { "Estudante" } }
+              menu.item { link_to(user.context == "professor" ? "#" : change_context_path , class: "btn btn-#{user.context != "professor" ? "ghost" : "secondary"}  btn-sm mb-1 ml-1", data: { "turbo-method": :post }) { "Professor" } }
+            }
           end
 
           if user.selected_room

@@ -4,13 +4,14 @@
 #
 #  id            :uuid             not null, primary key
 #  expected_out  :string           not null
+#  hidden        :boolean          default(FALSE), not null
 #  input         :string           not null
 #  output        :string           not null
 #  passed        :boolean          default(FALSE), not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  submission_id :uuid             not null
-#  test_id       :uuid             not null
+#  test_id       :uuid
 #
 # Indexes
 #

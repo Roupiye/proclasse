@@ -12,7 +12,7 @@ class Challenges::Form < ApplicationView
     if challenge.persisted?
       @action_verb = "Editar"
     else
-      @action_verb = "Novo"
+      @action_verb = "Criar"
     end
   end
 

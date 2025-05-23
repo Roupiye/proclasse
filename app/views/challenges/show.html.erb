@@ -3,6 +3,7 @@
     <h1 class="text-4xl font-bold">Dados desafio</h1>
     <div>
       <%= link_to "Voltar", challenges_path, class: "btn btn-secondary" %>
+      <%= link_to "Nova Tarefa", new_task_path(@challenge.id), class: "btn btn-outline btn-primary" %>
       <%= link_to "Deletar", @challenge, data: { "turbo-method": :delete, turbo_confirm: "Deseja deletar desafio?"}, class: "btn btn-error" %>
       <%= link_to "Editar", edit_challenge_path(@challenge), class: "btn btn-primary" %>
     </div>

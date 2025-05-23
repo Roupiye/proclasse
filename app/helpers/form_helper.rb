@@ -7,7 +7,7 @@ module FormHelper
     errors = form.object.errors[field]
 
     div(class: 'form-control') do
-      form.label(field, label_text, class: 'label')
+      form.label(field, label_text, class: 'label') unless type.to_s == "hidden_field"
       if block_given?
         block = Proc.new do
           form.send(type, [field, *args], named_args)

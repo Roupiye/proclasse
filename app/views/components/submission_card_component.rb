@@ -74,18 +74,22 @@ class SubmissionCardComponent < ApplicationComponent
           div(class: "mr-2 badge badge-#{correction.passed ? "primary" : "error"}") {}
           div() { "Teste #{index + 1} " }
         }
-        Button(:ghost, :sm, data_action: "click->collapse#toggle") { "<" }
+        if !correction.hidden?
+          Button(:ghost, :sm, data_action: "click->collapse#toggle") { "<" }
+        end
       }
 
-      div(id: "test-#{correction.id}-data", class: "hidden") {
-        div(class: "divider my-0")
+      if !correction.hidden?
+        div(id: "test-#{correction.id}-data", class: "hidden") {
+          div(class: "divider my-0")
 
-        div(class: "grid grid-cols-1 grid-rows-3 gap-2") {
-          correction_attr_view(correction, :input)
-          correction_attr_view(correction, :expected_out)
-          correction_attr_view(correction, :output)
+          div(class: "grid grid-cols-1 grid-rows-3 gap-2") {
+            correction_attr_view(correction, :input)
+            correction_attr_view(correction, :expected_out)
+            correction_attr_view(correction, :output)
+          }
         }
-      }
+      end
     }
   end
 

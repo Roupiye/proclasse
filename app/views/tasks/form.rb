@@ -12,7 +12,7 @@ class Tasks::Form < ApplicationView
     if task.persisted?
       @action_verb = "Editar"
     else
-      @action_verb = "Nova"
+      @action_verb = "Criar"
     end
   end
 
@@ -35,7 +35,7 @@ class Tasks::Form < ApplicationView
             "O horário de entrega sempre vai ser as 23:59"
           }
         end
-        form_control(form, :challenge_id, label: "ID desafio")
+        form_control(form, :challenge_id, type: :hidden_field)
 
         form.submit '', class: 'btn btn-primary hidden', id: "submit"
       }
