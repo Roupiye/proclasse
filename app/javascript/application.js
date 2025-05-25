@@ -11,5 +11,8 @@ import "channels"
 import "trix"
 import "@rails/actiontext"
 
+import "chartkick"
+import "Chart.bundle"
+
 // Turbo.setProgressBarDelay(delayInMilliseconds)
 window.Turbo = Turbo

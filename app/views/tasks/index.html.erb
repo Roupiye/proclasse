@@ -2,6 +2,8 @@
   <h1 class="text-4xl font-bold">Tarefas</h1>
 </div>
 
+
+<%= pie_chart Submission.group(:result).count %>
 <div id="tasks" class="min-w-full pb-10">
   <% @tasks.each do |obj| %>
     <% obj => task:, completed: %>

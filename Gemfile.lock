@@ -440,6 +440,7 @@ DEPENDENCIES
   bootsnap
   brakeman
   capybara
+  chartkick
   database_consistency
   debug
   faraday
