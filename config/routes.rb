@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :challenges
-  resources :tasks, except: [:new, :show]
+  resources :tasks, except: [:new]
   get  "tasks/:id/ide", to: "tasks#ide", as: :task_ide
   get  "tasks/new/:challenge_id", to: "tasks#new", as: :new_task
   post  "tasks/:id/ide/submit", to: "tasks#submit", as: :task_submit

@@ -12,7 +12,7 @@ class TaskCardComponent < ApplicationComponent
   end
 
   def view_template
-    link_to(task.due_date < Time.now ? "#" : task_ide_path(task)) {
+    link_to(path) {
       Card(
         :base_100,
         class: "flex flex-col items-center justify-between mt-4 w-full #{color} shadow-md border border-black/10 px-4 py-2",
@@ -34,6 +34,14 @@ class TaskCardComponent < ApplicationComponent
         }
       }
     }
+  end
+
+  def path
+    if Current.user.context == "student"
+      task.due_date < Time.now ? "#" : task_ide_path(task)
+    else
+      task_path(task)
+    end
   end
 
   def color

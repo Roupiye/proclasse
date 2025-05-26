@@ -12,7 +12,7 @@ class TasksController < ApplicationController
       }
     end
 
-    due = @tasks.select { it[:task].due_date < Time.now || it[:completed]}.sort{it[:task].due_date <=> it[:task].due_date}
+    due = @tasks.select { it[:task].due_date < Time.now || it[:completed]}.sort{it[:task].due_date <=> it[:task].due_date}.reverse
     not_due = @tasks.select { it[:task].due_date > Time.now }.sort{it[:task].due_date <=> it[:task].due_date}
     not_due -= due
 
@@ -22,7 +22,7 @@ class TasksController < ApplicationController
   # GET /tasks/1 or /tasks/1.json
   def show
   end
-  include CableReady::Broadcaster
+
   # POST /tasks/1/ide/submit
   def submit
     ProcessSubmissionJob.perform_later(
