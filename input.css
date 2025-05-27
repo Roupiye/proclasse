@@ -1,0 +1,72 @@
+@import "tailwindcss" source(none);
+
+@source './public/*.html';
+@source './app/helpers/**/*.rb';
+@source './app/javascript/**/*.js';
+@source './app/views/**/*.{erb,haml,html,slim,rb}';
+@source '{{PHLEXY_UI_PATH}}/**/*.rb';
+
+@plugin "./daisyui.js";
+
+:root:has(input.theme-controller[value=uwu]:checked),[data-theme="uwu"] { /* mytheme is the name of the custom theme */
+  name: "uwu";
+  default: true;
+  prefersdark: false;
+  color-scheme: "dark";
+  --color-base-100: #ffffdc;
+  --color-base-200: #ffffb8;
+  --color-base-300: #ffff94;
+  --color-base-content: #161611;
+  --color-primary: #a6a758;
+  --color-primary-content: #0a0a03;
+  --color-secondary: #74d8f6;
+  --color-secondary-content: #051115;
+  --color-accent: #4d7fea;
+  --color-accent-content: #010512;
+  --color-neutral: #909dad;
+  --color-neutral-content: oklch(29% 0.066 243.157);
+  --color-info: #006ed4;
+  --color-info-content: oklch(14% 0.004 49.25);
+  --color-success: #1ef02e;
+  --color-success-content: oklch(44% 0.119 151.328);
+  --color-warning: #eee953;
+  --color-warning-content: oklch(45% 0.124 130.933);
+  --color-error: #d04e41;
+  --color-error-content: #100201;
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
+
+.trix-content {
+  @apply overflow-auto p-2;
+  height: inherit;
+}
+
+.trix-content h1 {
+  @apply text-2xl font-bold mb-4;
+}
+
+.trix-content ul,
+.trix-content ol {
+  @apply my-2 pl-8;
+}
+
+.trix-content ul {
+  @apply list-disc;
+}
+
+.trix-content ol {
+  @apply list-decimal;
+}
+
+.trix-content a {
+  @apply text-blue-600 underline;
+}
+

@@ -1,0 +1,4 @@
+#!/bin/bash
+rm -f processed.css
+sed "s|{{PHLEXY_UI_PATH}}|$(bundle show phlexy_ui)|g" input.css > processed.css
+tailwindcss -i processed.css -o app/assets/builds/build.css --watch

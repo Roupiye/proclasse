@@ -11,7 +11,7 @@ class ProNavBarComponent < ApplicationComponent
   end
 
   def view_template
-    Navbar(:base_200, class: "shadow-md") { |navbar|
+    Navbar(:base_200, class: "shadow-md h-[49px] flex") { |navbar|
       div(class: "flex max-w-5xl w-full mx-auto") {
         navbar.start {
           link_to(root_path) {
@@ -43,7 +43,7 @@ class ProNavBarComponent < ApplicationComponent
 
   def profile_dropdown
     Dropdown(:end) { |dropdown|
-      dropdown.button(:ghost, class: "mb-1") {
+      dropdown.button(:ghost) {
         if user
           user.name
         else
@@ -57,8 +57,8 @@ class ProNavBarComponent < ApplicationComponent
             menu.item { link_to("Virar Professor", become_teacher_path, data: { "turbo-method": :post }) }
           else
             div(class: "flex") {
-              menu.item { link_to(user.context == "student" ? "#" : change_context_path , class: "btn btn-#{user.context != "student" ? "ghost" : "secondary"} btn-sm mb-1 mr-1", data: { "turbo-method": :post }) { "Estudante" } }
-              menu.item { link_to(user.context == "professor" ? "#" : change_context_path , class: "btn btn-#{user.context != "professor" ? "ghost" : "secondary"}  btn-sm mb-1 ml-1", data: { "turbo-method": :post }) { "Professor" } }
+              menu.item(class: "w-[50%]") { link_to(user.context == "student" ? "#" : change_context_path , class: "btn btn-#{user.context != "student" ? "ghost" : "secondary"} btn-sm mb-1 mr-1", data: { "turbo-method": :post }) { "Estudante" } }
+              menu.item(class: "w-[50%]") { link_to(user.context == "professor" ? "#" : change_context_path , class: "btn btn-#{user.context != "professor" ? "ghost" : "secondary"}  btn-sm mb-1 ml-1", data: { "turbo-method": :post }) { "Professor" } }
             }
           end
 

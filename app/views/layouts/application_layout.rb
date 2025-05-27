@@ -15,7 +15,7 @@ class ApplicationLayout < ApplicationView
   end
 
   def view_template()
-    html do
+    html(data_theme: "uwu") do
       head do
         title { "ProClasse" }
         meta(name: "turbo-cache-control", content: "no-cache")
@@ -29,9 +29,6 @@ class ApplicationLayout < ApplicationView
         link(rel: "icon", href: "/icon.svg", type: "image/svg+xml")
         link(rel: "apple-touch-icon", href: "/icon.png")
         # Includes all stylesheet files in app/assets/stylesheets
-        stylesheet_link_tag "tailwind",
-                            "inter-font",
-                            "data-turbo-track": "reload"
         stylesheet_link_tag :app, "data-turbo-track": "reload"
         javascript_importmap_tags
       end
@@ -42,7 +39,7 @@ class ApplicationLayout < ApplicationView
             yield
           }
         else
-          main(class: "max-w-5xl mx-auto mt-14 px-4") {
+          main(class: "base-100 max-w-5xl mx-auto mt-5 px-4") {
             p { notice }
             p { alert }
             yield

@@ -8,7 +8,7 @@ class Tasks::IdeView < ApplicationView
   def initialize(task:, submissions:)
     @task = task
     @submissions = submissions
-    @view_height = "height: calc(100vh - 68.25px);"
+    @view_height = "height: calc(100vh - 49px);"
   end
 
   def view_template
@@ -40,8 +40,8 @@ class Tasks::IdeView < ApplicationView
       }
 
       div(style: "height: calc(100% - 40px)", data_tabs_target: "panel") {
-        # render partial("challenges/problem", challenge: task.challenge)
-        render "challenges/problem", challenge: task.challenge #, challenge: task.challenge)
+        render partial("challenges/problem", challenge: task.challenge)
+        # render "challenges/problem", challenge: task.challenge #, challenge: task.challenge)
       }
       div(style: "height: calc(100% - 40px)", data_tabs_target: "panel", class: "flex flex-col") {
         div(class: "flex-1 overflow-x-auto"){
