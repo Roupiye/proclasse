@@ -33,11 +33,12 @@ GIT
 
 GIT
   remote: https://github.com/yippee-fun/phlex-rails
-  revision: 995c50749a81a11175874fa368b86d6086ff5def
+  revision: 5a2fa2d596491e2716c27d9efd48e1c6c8014e64
   specs:
-    phlex-rails (2.2.0)
-      phlex (~> 2.2.1)
+    phlex-rails (2.3.0)
+      phlex (~> 2.3.0)
       railties (>= 7.1, < 9)
+      zeitwerk (~> 2.7)
 
 GEM
   remote: https://rubygems.org/
@@ -259,7 +260,7 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.9)
-    phlex (2.2.1)
+    phlex (2.3.1)
       zeitwerk (~> 2.7)
     phlex-icons (1.8.0)
       phlex (>= 1.11)
