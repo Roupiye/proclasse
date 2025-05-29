@@ -29,16 +29,19 @@ class ApplicationLayout < ApplicationView
         link(rel: "icon", href: "/icon.svg", type: "image/svg+xml")
         link(rel: "apple-touch-icon", href: "/icon.png")
         # Includes all stylesheet files in app/assets/stylesheets
-        stylesheet_link_tag :app, "data-turbo-track": "reload"
+        stylesheet_link_tag :app
+        # stylesheet_link_tag "/build.css"
+
         javascript_importmap_tags
       end
-      body(class: "h-screen") do
-        render ProNavBarComponent.new(user: user)
+      body do
         if borderless
           main() {
+            render ProNavBarComponent.new(user: user, borderless: borderless)
             yield
           }
         else
+          render ProNavBarComponent.new(user: user, borderless: borderless)
           main(class: "base-100 max-w-5xl mx-auto mt-5 px-4") {
             p { notice }
             p { alert }

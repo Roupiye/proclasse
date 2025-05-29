@@ -8,7 +8,7 @@ class Tasks::IdeView < ApplicationView
   def initialize(task:, submissions:)
     @task = task
     @submissions = submissions
-    @view_height = "height: calc(100vh - 49px);"
+    @view_height = "height: calc(100vh - 64px);"
   end
 
   def view_template
@@ -51,11 +51,37 @@ class Tasks::IdeView < ApplicationView
           form_with(class: "m-0", url: task_submit_path, remote: false) { |form|
             form.hidden_field(:task_id, value: task.id)
             form.hidden_field(:submission_code, value: "")
-            Button(:secondary, class: "btn btn-secondary w-full rounded-none") { "Testar código" }
+            Button(:secondary, class: "hidden sm:block btn btn-secondary w-full rounded-none") { "Testar código" }
           }
         }
       }
     }
+    dock
+  end
+
+  def dock
+    div(class: "dock bg-neutral text-neutral-content flex sm:hidden") do
+      button do
+        div(class: "size-[1.2em]") { "C" }
+        span(class: "dock-label") { "Voltar" }
+      end
+      button do
+        div(class: "size-[1.2em]") { "C" }
+        span(class: "dock-label") { "Descrição" }
+      end
+      button(class: "dock-active") do
+        div(class: "size-[1.2em]") { "C" }
+        span(class: "dock-label") { "Resultados" }
+      end
+      button do
+        div(class: "size-[1.2em]") { "C" }
+        span(class: "dock-label") { "Código" }
+      end
+      button do
+        div(class: "size-[1.2em]") { "C" }
+        span(class: "dock-label") { "Enviar" }
+      end
+    end
   end
 
   def results_panel

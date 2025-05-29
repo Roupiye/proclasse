@@ -2,6 +2,8 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
 
+  config.hosts << /.*/
+
 # config.session_store :redis_session_store,
 #   serializer: :json,
 #   on_redis_down: ->(*a) { Rails.logger.error("Redis down! #{a.inspect}") },
