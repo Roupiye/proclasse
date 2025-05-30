@@ -15,21 +15,24 @@ class Tasks::IdeView < ApplicationView
     div(data_controller: "cable-from", data_cable_from_id_value: "#{task.id}#{Current.user.student.id}")
 
     div(class: "flex w-full", style: @view_height, data_controller: "resize") {
-      div(class: "w-96", style: "#{@view_height} min-width: 215px", data_resize_target: "panelL") {
+      div(id: "ide-panel-l", class: "w-96", style: "#{@view_height} min-width: 215px", data_resize_target: "panelL") {
         left_panel
       }
 
       div(class: "relative flex-1 w-40", data_resize_target: "panelR") {
         div(
+          id: "ide-gutter",
           class: "absolute top-0 bottom-0 cursor-col-resize bg-black w-[10px] opacity-50",
           data_resize_target: "gutter",
           data_action: "mousedown->resize#resize"
         )
-        div(class: "pl-[10px]") {
+        div(id: "ide-code", class: "pl-0 sm:pl-[10px]") {
           div(data_controller: "editor", style: "height: 100%")
         }
       }
     }
+
+    dock
   end
 
   def left_panel
@@ -56,11 +59,15 @@ class Tasks::IdeView < ApplicationView
         }
       }
     }
-    dock
   end
 
   def dock
-    div(class: "dock bg-neutral text-neutral-content flex sm:hidden") do
+    div(
+      id: "ide-dock",
+      data_controller: "ide-dock",
+      class: "dock bg-neutral text-neutral-content flex sm:hidden",
+      data_action:"resize@window->ide-dock#watch"
+    ) do
       button do
         div(class: "size-[1.2em]") { "C" }
         span(class: "dock-label") { "Voltar" }
@@ -69,11 +76,11 @@ class Tasks::IdeView < ApplicationView
         div(class: "size-[1.2em]") { "C" }
         span(class: "dock-label") { "Descrição" }
       end
-      button(class: "dock-active") do
+      button do
         div(class: "size-[1.2em]") { "C" }
         span(class: "dock-label") { "Resultados" }
       end
-      button do
+      button(class: "dock-active") do
         div(class: "size-[1.2em]") { "C" }
         span(class: "dock-label") { "Código" }
       end

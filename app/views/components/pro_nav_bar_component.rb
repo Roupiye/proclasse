@@ -4,15 +4,14 @@ class ProNavBarComponent < ApplicationComponent
   include Phlex::Rails::Helpers::LinkTo
   include Phlex::Rails::Helpers::ButtonTo
 
-  attr_accessor :user, :borderless
+  attr_accessor :user
 
-  def initialize(user: nil, borderless: false)
+  def initialize(user: nil)
     @user = user
-    @borderless = borderless
   end
 
   def view_template
-    Navbar(:base_200, class: "#{borderless ? "hidden sm:flex" : "flex" } shadow-md h-[49px]") { |navbar|
+    Navbar(:base_200, id: "nav-bar", class: "flex shadow-md h-[49px]") { |navbar|
       div(class: "flex max-w-5xl w-full mx-auto") {
         navbar.start {
           link_to(root_path) {

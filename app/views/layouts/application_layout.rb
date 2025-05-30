@@ -37,11 +37,11 @@ class ApplicationLayout < ApplicationView
       body do
         if borderless
           main() {
-            render ProNavBarComponent.new(user: user, borderless: borderless)
+            render ProNavBarComponent.new(user: user)
             yield
           }
         else
-          render ProNavBarComponent.new(user: user, borderless: borderless)
+          render ProNavBarComponent.new(user: user)
           main(class: "base-100 max-w-5xl mx-auto mt-5 px-4") {
             p { notice }
             p { alert }
