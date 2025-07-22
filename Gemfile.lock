@@ -248,10 +248,10 @@ GEM
     nokogiri-html5-inference (0.3.0)
       nokogiri (~> 1.14)
     observer (0.1.2)
-    octicons (19.15.2)
-    octicons_helper (19.15.2)
+    octicons (19.15.4)
+    octicons_helper (19.15.4)
       actionview
-      octicons (= 19.15.2)
+      octicons (= 19.15.4)
       railties
     ostruct (0.6.1)
     parallel (1.27.0)
